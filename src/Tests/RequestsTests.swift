@@ -8,21 +8,21 @@
 
 import XCTest
 @testable import Requests
-class RequestsTests: XCTestCase {
 
+class RequestsTests: XCTestCase {
+    
     let apiUrl = ""
-    let jsonEncoder = JSONEncoder()
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
+    
     func testGet() {
-                
+        
         let url = URL(string: apiUrl)!
         
         let res = try? Requests.get(url: url).get()
@@ -43,13 +43,15 @@ class RequestsTests: XCTestCase {
             ]
         )
         
-        let data = try? jsonEncoder.encode(member)
+        let data: Data? = Serialization.encode(member)
         
         XCTAssert(data != nil)
-
-        let res = try? Requests.post(url: url, body: data).get()
         
-        XCTAssert(res != nil)
+        let res = try? Requests.post(url: url, body: data).get()
+                
+        let dd = Serialization.decode(Person.self, from: res!)
+        
+        XCTAssert(dd != nil)
     }
     
     func testPut() {
@@ -65,10 +67,10 @@ class RequestsTests: XCTestCase {
             ]
         )
         
-        let data = try? jsonEncoder.encode(member)
+        let data: Data? = Serialization.encode(member)
         
         XCTAssert(data != nil)
-
+        
         let res = try? Requests.put(url: url, body: data).get()
         
         XCTAssert(res != nil)
@@ -82,10 +84,10 @@ class RequestsTests: XCTestCase {
         
         XCTAssert(res != nil)
     }
+    struct Person: Codable {
+        let name: String
+        let age: Int
+        let children: [Person]?
+    }
 }
 
-struct Person: Codable {
-    let name: String
-    let age: Int
-    let children: [Person]?
-}

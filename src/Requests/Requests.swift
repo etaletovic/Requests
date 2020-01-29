@@ -43,7 +43,7 @@ public struct Requests {
         
         var result: Result<String?, NetworkError>!
         let semaphore = DispatchSemaphore(value: 0)
-        let dt = session.dataTask(with: urlRequest) { (data, _, _) in
+        let task = session.dataTask(with: urlRequest) { (data, _, _) in
             if let data = data {
                 result = .success(String(data: data, encoding: .utf8))
             } else {
@@ -51,7 +51,7 @@ public struct Requests {
             }
             semaphore.signal()
         }
-        dt.resume()
+        task.resume()
         
         _ = semaphore.wait(wallTimeout: .distantFuture)
         

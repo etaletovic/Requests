@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C903ACB623D6864400AF32B0 /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903ACB523D6864400AF32B0 /* Serialization.swift */; };
+		C903ACB823E1419B00AF32B0 /* SerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C903ACB723E1419B00AF32B0 /* SerializationTests.swift */; };
 		C92D01C023D63EE600F47E0E /* RequestsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92D01BF23D63EE600F47E0E /* RequestsTests.swift */; };
 		C92D01C223D63EE600F47E0E /* libRequests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C978F01E23D63AC50047203B /* libRequests.a */; };
 		C978F02223D63AC50047203B /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C978F02123D63AC50047203B /* Requests.swift */; };
@@ -35,6 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C903ACB523D6864400AF32B0 /* Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
+		C903ACB723E1419B00AF32B0 /* SerializationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializationTests.swift; sourceTree = "<group>"; };
 		C92D01BD23D63EE600F47E0E /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C92D01BF23D63EE600F47E0E /* RequestsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTests.swift; sourceTree = "<group>"; };
 		C92D01C123D63EE600F47E0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				C92D01BF23D63EE600F47E0E /* RequestsTests.swift */,
+				C903ACB723E1419B00AF32B0 /* SerializationTests.swift */,
 				C92D01C123D63EE600F47E0E /* Info.plist */,
 			);
 			path = Tests;
@@ -92,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C978F02123D63AC50047203B /* Requests.swift */,
+				C903ACB523D6864400AF32B0 /* Serialization.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -186,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C903ACB823E1419B00AF32B0 /* SerializationTests.swift in Sources */,
 				C92D01C023D63EE600F47E0E /* RequestsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C903ACB623D6864400AF32B0 /* Serialization.swift in Sources */,
 				C978F02223D63AC50047203B /* Requests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
