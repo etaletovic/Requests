@@ -11,31 +11,52 @@ public struct Requests {
     
     static var session: URLSession = URLSession(configuration: .default, delegate: nil, delegateQueue:  OperationQueue())
     
-    public static func get(url: URL, timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+    public static func get(url: URL,
+                           additionalHeaders: [String: String] = [:],
+                           timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
         
-        request(url: url, body: nil, httpMethod: "GET", timeoutInSeconds: timeoutInSeconds)
+        request(url: url, body: nil, httpMethod: "GET", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
     
-    public static func post(url: URL, body: Data?, timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+    public static func post(url: URL,
+                            body: Data?,
+                            additionalHeaders: [String: String] = [:],
+                            timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
         
-        request(url: url, body: body, httpMethod: "POST", timeoutInSeconds: timeoutInSeconds)
+        request(url: url, body: body, httpMethod: "POST", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
     
-    public static func put(url: URL, body: Data?, timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+    public static func put(url: URL,
+                           body: Data?,
+                           additionalHeaders: [String: String] = [:],
+                           timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
         
-        request(url: url, body: body, httpMethod: "PUT", timeoutInSeconds: timeoutInSeconds)
+        request(url: url, body: body, httpMethod: "PUT", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
     
-    public static func delete(url: URL, timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
-        request(url: url, body: nil, httpMethod: "DELETE", timeoutInSeconds: timeoutInSeconds)
+    public static func delete(url: URL,
+                              additionalHeaders: [String: String] = [:],
+                              timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+        
+        request(url: url, body: nil, httpMethod: "DELETE", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
     
-    public static func request(url: URL, body: Data?, httpMethod: String, timeoutInSeconds: Double) -> Result<String?, NetworkError> {
+    public static func request(url: URL,
+                               body: Data?,
+                               httpMethod: String,
+                               timeoutInSeconds: Double,
+                               additionalHeaders: [String: String]) -> Result<String?, NetworkError> {
         
         var urlRequest = URLRequest(url: url, timeoutInterval: timeoutInSeconds)
         urlRequest.httpBody = body
         urlRequest.httpMethod = httpMethod
-                
+        
+        additionalHeaders.forEach { headerKey, headerValue in
+            if headerKey.isEmpty == false && headerValue.isEmpty == false {
+                urlRequest.addValue(headerValue, forHTTPHeaderField: headerKey)
+            }
+        }
+        
         return request(urlRequest: urlRequest, body: body, httpMethod: httpMethod, timeoutInSeconds: timeoutInSeconds)
     }
     

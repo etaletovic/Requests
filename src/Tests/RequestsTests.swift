@@ -84,6 +84,26 @@ class RequestsTests: XCTestCase {
         
         XCTAssert(res != nil)
     }
+    
+    func testCustomHeader() {
+        
+        let url = URL(string: apiUrl)!
+        
+        let values = ["Test1", "Test2", "Test3", "Test4"]
+        
+        var headers: [String: String] = [:]
+        
+        values.forEach { val in
+            headers.updateValue(val, forKey: "X-Test")
+        }
+        
+        headers["accept"] = "application/json"
+        headers["content-type"] = "application/json"
+        let res = try? Requests.get(url: url, additionalHeaders: headers).get()
+        
+        XCTAssert(res != nil)
+    }
+    
     struct Person: Codable {
         let name: String
         let age: Int
