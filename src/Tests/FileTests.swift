@@ -22,10 +22,21 @@ class FileTests: XCTestCase {
     
     func testGetImageAndSaveToFile() {
         
-        let url = URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png")!
+        let imageUrl = URL(string: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png")!
                 
-        let res = try? Requests.get(url: url)
+        guard let downloadedImageData = try? Requests.get(url: imageUrl).get() else {
+            XCTFail("Image not downloaded")
+            return
+        }
         
+        guard let imagePath = try? FileHelper.getDocumentsDirectory().appendingPathComponent("testImage.png") else {
+            XCTFail("Cannot get documents directory")
+            return
+        }
+        
+        let writeResult = downloadedImageData.writeToFile(file: imagePath)
+        
+        XCTAssert(writeResult)
         //TODO: implement saving to file. Get only supports String atm
         
     }

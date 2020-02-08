@@ -13,7 +13,7 @@ public struct Requests {
     
     public static func get(url: URL,
                            additionalHeaders: [String: String] = [:],
-                           timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+                           timeoutInSeconds: Double = 15) -> Result<Data?, NetworkError> {
         
         request(url: url, body: nil, httpMethod: "GET", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
@@ -21,7 +21,7 @@ public struct Requests {
     public static func post(url: URL,
                             body: Data?,
                             additionalHeaders: [String: String] = [:],
-                            timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+                            timeoutInSeconds: Double = 15) -> Result<Data?, NetworkError> {
         
         request(url: url, body: body, httpMethod: "POST", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
@@ -29,14 +29,14 @@ public struct Requests {
     public static func put(url: URL,
                            body: Data?,
                            additionalHeaders: [String: String] = [:],
-                           timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+                           timeoutInSeconds: Double = 15) -> Result<Data?, NetworkError> {
         
         request(url: url, body: body, httpMethod: "PUT", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
     
     public static func delete(url: URL,
                               additionalHeaders: [String: String] = [:],
-                              timeoutInSeconds: Double = 15) -> Result<String?, NetworkError> {
+                              timeoutInSeconds: Double = 15) -> Result<Data?, NetworkError> {
         
         request(url: url, body: nil, httpMethod: "DELETE", timeoutInSeconds: timeoutInSeconds, additionalHeaders: additionalHeaders)
     }
@@ -45,7 +45,7 @@ public struct Requests {
                                body: Data?,
                                httpMethod: String,
                                timeoutInSeconds: Double,
-                               additionalHeaders: [String: String]) -> Result<String?, NetworkError> {
+                               additionalHeaders: [String: String]) -> Result<Data?, NetworkError> {
         
         var urlRequest = URLRequest(url: url, timeoutInterval: timeoutInSeconds)
         urlRequest.httpBody = body
@@ -60,13 +60,13 @@ public struct Requests {
         return request(urlRequest: urlRequest, body: body, httpMethod: httpMethod, timeoutInSeconds: timeoutInSeconds)
     }
     
-    public static func request(urlRequest: URLRequest, body: Data?, httpMethod: String, timeoutInSeconds: Double) -> Result<String?, NetworkError> {
+    public static func request(urlRequest: URLRequest, body: Data?, httpMethod: String, timeoutInSeconds: Double) -> Result<Data?, NetworkError> {
         
-        var result: Result<String?, NetworkError>!
+        var result: Result<Data?, NetworkError>!
         let semaphore = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: urlRequest) { (data, _, _) in
             if let data = data {
-                result = .success(String(data: data, encoding: .utf8))
+                result = .success(data)
             } else {
                 result = .failure(.server)
             }

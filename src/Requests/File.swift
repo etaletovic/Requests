@@ -21,6 +21,8 @@ extension Data {
     }
 }
 
-func getDocumentsDirectory() -> URL {
-    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+public struct FileHelper {
+    static func getDocumentsDirectory() throws -> URL {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
 }
